@@ -25,7 +25,7 @@
 <button class="guest-submit" type="submit">Send your wishes ♡</button></form>
 <div class="guest-status" id="guestStatus" role="status" aria-live="polite"></div>
 <p class="guest-note">Thank you for being part of our happiness ♡</p></section>
-<p class="footnote">WE CAN’T WAIT TO CELEBRATE WITH YOU</p></main><iframe name="guestSubmitFrame" id="guestSubmitFrame" title="Guestbook submission" style="display:none"></iframe>
+<p class="footnote">WE CAN’T WAIT TO CELEBRATE WITH YOU</p></main>
 <script>
 (function(){
 // 3 Jan 2027, 3:00 PM in Cairo (UTC+02:00 in January).
@@ -50,7 +50,26 @@ function updateCountdown(){
 }
 updateCountdown();
 window.setInterval(updateCountdown, 1000);
-const ENDPOINT='PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';const form=document.getElementById('guestForm'),status=document.getElementById('guestStatus');
-form.addEventListener('submit',function(e){e.preventDefault();if(!/^https:\/\//.test(ENDPOINT)){status.textContent='Guestbook is being prepared. Please try again soon.';return;}const data=new FormData(form);const payload=document.createElement('form');payload.method='POST';payload.action=ENDPOINT;payload.target='guestSubmitFrame';[['action','save'],['name',data.get('name')],['message',data.get('message')]].forEach(([k,v])=>{const i=document.createElement('input');i.type='hidden';i.name=k;i.value=v;payload.appendChild(i)});document.body.appendChild(payload);status.textContent='Sending your message…';payload.submit();payload.remove();setTimeout(()=>{status.textContent='Thank you! Your wishes have been sent ♡';form.reset();},1800);
-});})();
+const ENDPOINT='https://formsubmit.co/ajax/abdohisham237@gmail.com';
+const form=document.getElementById('guestForm'),status=document.getElementById('guestStatus');
+form.addEventListener('submit',async function(e){
+  e.preventDefault();
+  if(!form.reportValidity()) return;
+  const button=form.querySelector('button[type=submit]');
+  const data=new FormData(form);
+  data.append('_subject','Wedding wishes for Abdulrahman & Nadine');
+  data.append('_captcha','false');
+  data.append('_template','table');
+  button.disabled=true;
+  status.textContent='Sending your message…';
+  try{
+    const response=await fetch(ENDPOINT,{method:'POST',body:data,headers:{'Accept':'application/json'}});
+    const result=await response.json();
+    if(!response.ok || !(result.success===true || result.success==='true')) throw new Error(result.message||'Submission failed');
+    status.textContent='Thank you! Your wishes have been sent ♡';
+    form.reset();
+  }catch(error){
+    status.textContent='Sorry, the message could not be sent. Please try again later.';
+  }finally{button.disabled=false;}
+});
 </script></body></html>
