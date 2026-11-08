@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Abdulrahman and Nadine//Wedding//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:abdulrahman-nadine-20270103T130000@example.com
+DTSTAMP:20261108T120000Z
+DTSTART;TZID=Africa/Cairo:20270103T150000
+DTEND;TZID=Africa/Cairo:20270103T160000
+SUMMARY:Abdulrahman & Nadine Wedding
+LOCATION:Gardenia Wedding Halls - La Violla, Almaza, Cairo
+DESCRIPTION:Wedding celebration of Abdulrahman and Nadine.
+END:VEVENT
+END:VCALENDAR
